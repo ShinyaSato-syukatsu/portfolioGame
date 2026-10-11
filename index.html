@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shinya Sato | Game Portfolio</title>
+    <meta name="description" content="佐藤伸哉のゲーム制作ポートフォリオ。チーム開発中の Steam タイトル『ODD ODDS』と、C言語 + SDL2 のネットワーク対戦ゲーム『Hide &amp; Hide』を中心に紹介します。">
+    <script>document.documentElement.classList.add('js');</script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans JP"', 'system-ui', 'sans-serif'],
+                        display: ['"Zen Kaku Gothic New"', '"Noto Sans JP"', 'sans-serif'],
+                        mono: ['"IBM Plex Mono"', 'ui-monospace', 'monospace'],
+                        gothic: ['Cinzel', '"Times New Roman"', 'serif'],
+                    },
+                    colors: {
+                        paper: '#F5F6F8',
+                        surface: '#FFFFFF',
+                        ink: '#15171C',
+                        muted: '#5A606B',
+                        line: '#E2E5EA',
+                        crimson: '#A3192E',
+                        crimsonSoft: '#F7E7EA',
+                    },
+                },
+            },
+        }
+    </script>
+
+  <script type="module" crossorigin src="/portfolioGame/assets/index-C-HY3C0o.js"></script>
+  <link rel="stylesheet" crossorigin href="/portfolioGame/assets/index-Cfw6Qebo.css">
+</head>
+<body class="bg-paper text-ink font-sans selection:bg-crimsonSoft selection:text-crimson">
+
+    <!-- ナビゲーション -->
+    <nav class="fixed top-0 inset-x-0 z-50 bg-paper/90 backdrop-blur-md border-b border-line">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="#top" class="font-display font-bold text-lg tracking-wide text-ink">Shinya Sato</a>
+                <div class="hidden md:flex items-center gap-8 text-sm font-medium text-muted">
+                    <a href="#odd-odds" class="hover:text-crimson transition-colors">ODD ODDS</a>
+                    <a href="#hide-and-hide" class="hover:text-crimson transition-colors">Hide &amp; Hide</a>
+                    <a href="#others" class="hover:text-crimson transition-colors">その他の制作</a>
+                    <a href="#profile" class="hover:text-crimson transition-colors">プロフィール</a>
+                </div>
+                <button id="mobile-menu-btn" class="md:hidden text-ink hover:text-crimson p-2" aria-label="メニューを開く">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-paper border-t border-line">
+            <div class="px-4 py-3 grid gap-1 text-base font-medium text-muted">
+                <a href="#odd-odds" class="px-3 py-2 rounded-md hover:bg-surface hover:text-crimson">ODD ODDS</a>
+                <a href="#hide-and-hide" class="px-3 py-2 rounded-md hover:bg-surface hover:text-crimson">Hide &amp; Hide</a>
+                <a href="#others" class="px-3 py-2 rounded-md hover:bg-surface hover:text-crimson">その他の制作</a>
+                <a href="#profile" class="px-3 py-2 rounded-md hover:bg-surface hover:text-crimson">プロフィール</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 冒頭：誰か＋作品への入り口 -->
+    <header id="top" class="pt-28 md:pt-36 pb-16 md:pb-20">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <p class="font-mono text-xs tracking-[0.2em] text-crimson uppercase">Game Portfolio</p>
+            <h1 class="font-display font-black text-4xl md:text-6xl text-ink mt-3 leading-tight">佐藤 伸哉<span class="block text-lg md:text-2xl font-bold text-muted mt-2 tracking-wide">Shinya Sato</span></h1>
+            <p class="text-sm text-muted mt-4">徳島大学大学院 創成科学研究科 理工学専攻</p>
+            <p class="max-w-2xl text-base md:text-lg leading-relaxed text-ink mt-6">チームでのゲーム制作を中心に、遊びの手触りと、それを支える仕組みの両方を作っています。いまは4人チームで Steam タイトル『ODD ODDS』の製品版を開発しています。</p>
+
+            <div class="grid gap-4 md:grid-cols-3 mt-10">
+                <a href="#odd-odds" class="group flex flex-col rounded-xl overflow-hidden bg-surface border border-line hover-lift">
+                    <div class="aspect-video md:aspect-auto md:flex-1 md:min-h-[9rem] overflow-hidden bg-ink">
+                        <img src="./odd/title.jpg" alt="ODD ODDS のタイトル画面" class="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500">
+                    </div>
+                    <div class="p-4">
+                        <p class="font-mono text-[11px] tracking-wider text-crimson">制作中・Steam</p>
+                        <p class="font-gothic font-bold text-xl text-ink mt-1">ODD ODDS</p>
+                        <p class="text-xs text-muted mt-1">物理演算 × ローグライク × ギャンブル／Unity</p>
+                    </div>
+                </a>
+                <a href="#hide-and-hide" class="group flex flex-col rounded-xl overflow-hidden bg-surface border border-line hover-lift">
+                    <div class="aspect-video md:aspect-auto md:flex-1 md:min-h-[9rem] overflow-hidden bg-ink">
+                        <img src="./hide_title.png" alt="Hide &amp; Hide のタイトル画面" class="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500">
+                    </div>
+                    <div class="p-4">
+                        <p class="font-mono text-[11px] tracking-wider text-crimson">完成作品・大学の授業課題</p>
+                        <p class="font-display font-bold text-xl text-ink mt-1">Hide &amp; Hide</p>
+                        <p class="text-xs text-muted mt-1">ネットワーク対戦かくれんぼ／C言語 + SDL2</p>
+                    </div>
+                </a>
+                <div class="rounded-xl bg-surface border border-line p-3">
+                    <a href="#others" class="flex items-center justify-between px-1 pb-2"><span class="font-mono text-[11px] tracking-wider text-crimson">その他の制作・研究</span><i class="fas fa-arrow-down text-[11px] text-crimson"></i></a>
+                    <div class="grid grid-cols-2 gap-2">
+                        <a href="#yattosar" class="group block rounded-lg overflow-hidden border border-line bg-paper hover:border-crimson transition-colors">
+                            <div class="aspect-[16/10] overflow-hidden bg-line"><img src="./2026-03-18_2.22.41.png" alt="" class="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-500"></div>
+                            <div class="px-2 py-1.5"><p class="text-[11px] font-bold leading-snug">避難訓練システム「Yattosar」</p><p class="text-[10px] text-muted">研究・学会発表</p></div>
+                        </a>
+                        <a href="#malaysia" class="group block rounded-lg overflow-hidden border border-line bg-paper hover:border-crimson transition-colors">
+                            <div class="aspect-[16/10] overflow-hidden bg-line"><img src="./malaysia.jpg" alt="" class="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-500"></div>
+                            <div class="px-2 py-1.5"><p class="text-[11px] font-bold leading-snug">VR ゲームの国際共同制作</p><p class="text-[10px] text-muted">マレーシア・UTeM</p></div>
+                        </a>
+                        <a href="#webar" class="group block rounded-lg overflow-hidden border border-line bg-paper hover:border-crimson transition-colors">
+                            <div class="aspect-[16/10] overflow-hidden bg-line"><img src="./webar-poster.jpg" alt="" class="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-500"></div>
+                            <div class="px-2 py-1.5"><p class="text-[11px] font-bold leading-snug">特別支援学校向けの Web AR</p><p class="text-[10px] text-muted">社会貢献</p></div>
+                        </a>
+                        <a href="#robot" class="group block rounded-lg overflow-hidden border border-line bg-paper hover:border-crimson transition-colors">
+                            <div class="aspect-[16/10] overflow-hidden bg-line"><img src="./robot1.png" alt="" class="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-500"></div>
+                            <div class="px-2 py-1.5"><p class="text-[11px] font-bold leading-snug">サッカーロボットの製作</p><p class="text-[10px] text-muted">中学・高校</p></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ODD ODDS -->
+    <section id="odd-odds" class="bg-surface border-y border-line py-20 md:py-28">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <div class="flex flex-wrap items-center gap-2 text-xs">
+                <span class="px-2.5 py-1 rounded-full bg-crimsonSoft text-crimson font-semibold">製品版を開発中（2026年10月末リリース予定）</span>
+                <span class="px-2.5 py-1 rounded-full border border-line text-muted font-mono">2026年4月〜</span>
+                <span class="px-2.5 py-1 rounded-full border border-line text-muted">4人チーム（プログラマー4名）</span>
+            </div>
+            <h2 class="font-gothic font-bold text-4xl md:text-6xl tracking-wide mt-5">ODD ODDS</h2>
+            <p class="font-display text-base md:text-lg text-muted mt-2">物理演算 × ローグライク × ギャンブル（PC／Steam）</p>
+
+            <div class="aspect-video rounded-xl overflow-hidden border border-line mt-8 bg-black">
+                <iframe class="w-full h-full" src="https://www.youtube.com/embed/ru0rHQamQzI" title="ODD ODDS トレーラー" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+
+            <div class="grid gap-10 lg:grid-cols-[1fr_20rem] mt-10">
+                <div class="space-y-8">
+                    <div>
+                        <h3 class="font-display font-bold text-lg text-crimson">概要</h3>
+                        <p class="text-sm md:text-base leading-relaxed mt-3">「物理演算 × ローグライク × ギャンブル」をテーマにした PC 向けのゲームです。悪魔への借金を返すため、クレーンゲーム（デビルキャッチャー）やピンボールでコインを稼ぎ、ターンの終わりにはタイプライターで強化を選びます。数ターンごとにやって来る悪魔の取り立てを乗り切りながら、完済を目指します。Steam でストアページと無料の体験版を公開中で、製品版は2026年10月末にリリース予定です。</p>
+                    </div>
+                    <div>
+                        <h3 class="font-display font-bold text-lg text-crimson">担当したこと</h3>
+                        <p class="text-sm md:text-base leading-relaxed mt-3">主に、次の3つを担当しています。</p>
+                        <dl class="mt-4 grid gap-3">
+                            <div class="rounded-lg bg-paper border border-line p-4">
+                                <dt class="font-bold">ゲーム全体の土台</dt>
+                                <dd class="text-sm leading-relaxed text-muted mt-1">どの場面からも使われる共通の仕組みを担当しています。設定画面（解像度・フレームレート・音量・テキスト速度・言語の保存）、音量の仕組み、会話の文字送り、カーソルと操作の管理、セーブ、Steam の実績などです。不具合の調査と修正も多く受け持っています。</dd>
+                            </div>
+                            <div class="rounded-lg bg-paper border border-line p-4">
+                                <dt class="font-bold">画面と演出</dt>
+                                <dd class="text-sm leading-relaxed text-muted mt-1">タイトルとローディング、クレーンゲームのタイマー、毎ターン強化を選ぶタイプライター（報酬選択の画面）を担当しました。</dd>
+                            </div>
+                            <div class="rounded-lg bg-paper border border-line p-4">
+                                <dt class="font-bold">製品版の新機能</dt>
+                                <dd class="text-sm leading-relaxed text-muted mt-1">取り立ての後に寄る「商人の店」と、それにつながるタイプライターのスキルとリロール、画面左上の「このターンにやること」を担当しています。</dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+
+                <aside class="space-y-6">
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="rounded-xl bg-paper border border-line p-4">
+                            <p class="font-mono text-2xl font-medium text-crimson tabular-nums whitespace-nowrap"><span class="text-xs mr-0.5">約</span>1,050<span class="text-xs ml-1">件</span></p>
+                            <p class="text-[11px] text-muted mt-1">Steam ウィッシュリスト</p>
+                        </div>
+                        <div class="rounded-xl bg-paper border border-line p-4">
+                            <p class="font-mono text-2xl font-medium text-crimson tabular-nums whitespace-nowrap"><span class="text-xs mr-0.5">約</span>1,000<span class="text-xs ml-1">名</span></p>
+                            <p class="text-[11px] text-muted mt-1">体験版のプレイ</p>
+                        </div>
+                    </div>
+                    <p class="text-[11px] text-muted -mt-3 text-right">※2026年10月時点</p>
+
+                    <div>
+                        <h3 class="font-mono text-xs tracking-wider text-muted">使用技術</h3>
+                        <ul class="flex flex-wrap gap-2 mt-3 text-xs">
+                            <li class="px-2.5 py-1 rounded-md bg-paper border border-line">Unity 6 (URP)</li>
+                            <li class="px-2.5 py-1 rounded-md bg-paper border border-line">C#</li>
+                            <li class="px-2.5 py-1 rounded-md bg-paper border border-line">HLSL シェーダー</li>
+                            <li class="px-2.5 py-1 rounded-md bg-paper border border-line">TextMeshPro</li>
+                            <li class="px-2.5 py-1 rounded-md bg-paper border border-line">DOTween</li>
+                            <li class="px-2.5 py-1 rounded-md bg-paper border border-line">Unity Localization（5言語）</li>
+                            <li class="px-2.5 py-1 rounded-md bg-paper border border-line">Input System</li>
+                            <li class="px-2.5 py-1 rounded-md bg-paper border border-line">Steamworks.NET</li>
+                            <li class="px-2.5 py-1 rounded-md bg-paper border border-line">Git・GitHub</li>
+                        </ul>
+                    </div>
+
+                    <div class="flex flex-wrap gap-2">
+                        <a href="https://store.steampowered.com/app/5159930/ODD_ODDS/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-md border border-line text-sm hover:border-crimson hover:text-crimson transition-colors"><i class="fa-brands fa-steam"></i> Steam</a>
+                        <a href="https://x.com/limited4tune" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-md border border-line text-sm hover:border-crimson hover:text-crimson transition-colors"><i class="fa-brands fa-x-twitter"></i> X</a>
+                        <a href="https://youtube.com/@limitedfourtune" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-md border border-line text-sm hover:border-crimson hover:text-crimson transition-colors"><i class="fa-brands fa-youtube"></i> YouTube</a>
+                    </div>
+                </aside>
+            </div>
+
+            <!-- 主に手がけた機能 -->
+            <h3 class="font-display font-bold text-2xl mt-20">主に手がけた機能</h3>
+            <div class="grid gap-6 md:grid-cols-2 mt-6">
+                <article class="md:col-span-2 rounded-xl bg-paper border border-line overflow-hidden lg:grid lg:grid-cols-[3fr_2fr] fade-up">
+                    <div class="aspect-video bg-ink">
+                        <video data-loop src="./odd/shop.mp4" poster="./odd/shop-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="商人の店へ入り、布に映る商人の影と店の画面を見せる動画" class="w-full h-full object-cover"></video>
+                    </div>
+                    <div class="p-5 md:p-6 lg:p-8 lg:self-center">
+                        <h4 class="font-display font-bold text-lg lg:text-xl">商人の店<span class="ml-2 align-middle text-[11px] font-sans font-medium px-2 py-0.5 rounded-full bg-crimsonSoft text-crimson">製品版・開発中</span></h4>
+                        <p class="text-sm leading-relaxed text-muted mt-2">取り立ての後に寄る店です。扉を開けて店へ入るカメラの流れ、布に映る商人の影、品物の売り買い、鍵のガチャの演出、部屋に落ちるコインと鍵、所持金（DC）での6項目の強化を作りました。</p>
+                    </div>
+                </article>
+                <article class="rounded-xl bg-paper border border-line overflow-hidden fade-up">
+                    <div class="aspect-video bg-ink">
+                        <video data-loop src="./odd/typewriter.mp4" poster="./odd/typewriter-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="タイプライターで強化を選び、紙が燃え尽きる動画" class="w-full h-full object-cover"></video>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="font-display font-bold text-lg">タイプライター（報酬選択の画面）</h4>
+                        <p class="text-sm leading-relaxed text-muted mt-2">毎ターン強化を選ぶ、ゲームの中核の画面です。打たれた紙が燃える演出、アイテムショップ、使い方のチュートリアル、ブラックダイヤの売却の演出、5言語への対応までを担当しました。10月にはリロールと閉じるボタンを加えました。</p>
+                    </div>
+                </article>
+                <article class="rounded-xl bg-paper border border-line overflow-hidden fade-up">
+                    <div class="aspect-video bg-ink">
+                        <video data-loop src="./odd/loading.mp4" poster="./odd/loading-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="3D のロゴが回るロード画面の動画" class="w-full h-full object-cover"></video>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="font-display font-bold text-lg">タイトルとローディング</h4>
+                        <p class="text-sm leading-relaxed text-muted mt-2">タイトルの悪魔の会話、文字送りの音、3D のロゴのロード画面、ターンの切り替わりの演出を担当しました。複数のシーンを同時に読み込む作りで起きていた画面のちらつきを、8月に作り直して解消しました。</p>
+                    </div>
+                </article>
+                <article class="rounded-xl bg-paper border border-line overflow-hidden fade-up">
+                    <div class="aspect-video bg-ink">
+                        <video data-loop src="./odd/timer.mp4" poster="./odd/timer-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="クレーンゲームのタイマーが緑から警告の赤に変わる動画" class="w-full h-full object-cover"></video>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="font-display font-bold text-lg">クレーンゲームのタイマー</h4>
+                        <p class="text-sm leading-relaxed text-muted mt-2">7セグメント風の残り時間、ブラウン管風の演出（走査線・揺れ・周辺減光・残光）、文字のホログラムのシェーダーを作りました。残り10秒で警告の色に変わります。色や強さを Inspector で変えるとその場で反映されるので、見た目の調整がしやすい作りです。</p>
+                    </div>
+                </article>
+                <article class="rounded-xl bg-paper border border-line overflow-hidden fade-up">
+                    <div class="aspect-video bg-ink">
+                        <img src="./odd/todo.jpg" alt="画面左上の「このターンにやること」。終わった項目に線が引かれている" class="w-full h-full object-cover cursor-zoom-in">
+                    </div>
+                    <div class="p-5">
+                        <h4 class="font-display font-bold text-lg">このターンにやること</h4>
+                        <p class="text-sm leading-relaxed text-muted mt-2">1ターンの手順（コインを掴む・ピンボールで稼ぐ・換金する・最後に強化を選ぶ）を画面の左上に出し、終わった項目に左から右へ線を引いて薄くします。部屋を歩ける時だけ表示し、5言語に対応しています。</p>
+                    </div>
+                </article>
+            </div>
+
+            <!-- 遊びの工夫 -->
+            <h3 class="font-display font-bold text-2xl mt-20">遊びの工夫</h3>
+            <div class="grid gap-6 md:grid-cols-3 mt-6">
+                <article class="rounded-xl bg-paper border border-line overflow-hidden fade-up">
+                    <div class="aspect-video bg-ink">
+                        <video data-loop src="./odd/blackdiamond.mp4" poster="./odd/blackdiamond-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="ブラックダイヤの売却の演出。左が呪い、右が加護" class="w-full h-full object-contain"></video>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="font-bold text-crimson">呪いと加護を、ひと目で見分けられる演出</h4>
+                        <p class="text-[11px] text-muted mt-1">動画の左：呪い／右：加護</p>
+                        <p class="text-sm leading-relaxed text-muted mt-2">ブラックダイヤの売却では、色・パネルの揺れ・ダイヤの沈み込み・コインが吸い上げられるか降り注ぐか・数字の動きなど6点で呪いと加護を対比させました。固定の矢印はどちらかの場面で向きが嘘になるため、コインの動きで向きを見せています。</p>
+                    </div>
+                </article>
+                <article class="rounded-xl bg-paper border border-line overflow-hidden fade-up">
+                    <div class="aspect-video bg-ink">
+                        <video data-loop src="./odd/tutorial.mp4" poster="./odd/tutorial-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="タイプライターのチュートリアル。案内された操作を行うと次へ進む" class="w-full h-full object-cover"></video>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="font-bold text-crimson">実際の操作を待って進むチュートリアル</h4>
+                        <p class="text-sm leading-relaxed text-muted mt-2">悪魔が使い方を説明する11ステップのチュートリアルは、「タブを開く」「アイテムを選ぶ」などを実際に行うまで進みません。誘導先以外は押せないようにし、読みながら自然に覚えられる流れにしました。</p>
+                    </div>
+                </article>
+                <article class="rounded-xl bg-paper border border-line overflow-hidden fade-up">
+                    <div class="aspect-video bg-ink">
+                        <video data-loop src="./odd/gacha.mp4" poster="./odd/gacha-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="錠前を開ける鍵のガチャ。等級に応じて演出が変わる" class="w-full h-full object-cover"></video>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="font-bold text-crimson">錠前を開ける、鍵のガチャ</h4>
+                        <p class="text-sm leading-relaxed text-muted mt-2">鍵を差してクリックすると、錠前の歯が1つずつそろい、鍵穴の光の色が等級に応じて昇格していきます。等級が高いほど光・火花・コインの雨・花火と演出が重なり、開く瞬間まで期待が高まるようにしました。</p>
+                    </div>
+                </article>
+            </div>
+            <div class="grid gap-x-10 gap-y-8 md:grid-cols-3 mt-8">
+                <div class="border-t border-line pt-5">
+                    <h4 class="font-bold text-crimson">溜め込むほど効きが薄れる売却の式</h4>
+                    <p class="text-sm leading-relaxed text-muted mt-2">「個数に比例」の式では、7個で所持金がすべて没収され、加護では際限なく増えていました。「1個ごとに掛ける」式に変え、何個持っても0にも無限にもならず、倍率の調整だけでバランスを取れるようにしました。</p>
+                </div>
+                <div class="border-t border-line pt-5">
+                    <h4 class="font-bold text-crimson">店で使うほど、次の取り立てが苦しくなる</h4>
+                    <p class="text-sm leading-relaxed text-muted mt-2">店の支払いには、取り立てにも使う所持金（DC）を使います。店の画面には次の取り立て額を常に出し、強化するか温存するかの駆け引きが生まれるようにしました。鍵はまれにしか手に入らないようにしています。</p>
+                </div>
+                <div class="border-t border-line pt-5">
+                    <h4 class="font-bold text-crimson">テキスト速度と、長押しの早送り</h4>
+                    <p class="text-sm leading-relaxed text-muted mt-2">設定でテキスト速度を選べるようにし、会話中は押しっぱなしで早送りできるようにしました。長押しの判定時間でクリック（次へ進む）と早送りを区別し、誤って読み飛ばさないようにしています。会話の途中でも速度を切り替えられます。</p>
+                </div>
+            </div>
+
+            <!-- 設計と実装の工夫 -->
+            <h3 class="font-display font-bold text-2xl mt-20">設計と実装の工夫</h3>
+            <div class="grid gap-6 md:grid-cols-2 mt-6">
+
+                <article class="md:col-span-2 rounded-xl bg-paper border border-line p-5 md:p-7 fade-up">
+                    <h4 class="font-display font-bold text-lg">進行不能のバグから、「操作の持ち主」を1か所にまとめる設計へ</h4>
+                    <dl class="grid gap-3 text-sm leading-relaxed mt-4">
+                        <div class="grid sm:grid-cols-[4rem_1fr] gap-1 sm:gap-4"><dt class="font-mono text-xs tracking-wider text-muted pt-0.5">課題</dt><dd class="text-muted">15のファイルがカーソルと操作の状態をそれぞれ書き換えては元に戻していたため、「最後に書いた方が勝つ」「戻す内容が古い」の2通りで状態が壊れ、設定画面を開いたまま会話が終わると進行できなくなっていました。</dd></div>
+                        <div class="grid sm:grid-cols-[4rem_1fr] gap-1 sm:gap-4"><dt class="font-mono text-xs tracking-wider text-crimson pt-0.5">解決</dt><dd>各場面は「要求の登録と取り下げ」をするだけにし、状態を書き換えるのは管理役の1か所に絞りました。毎フレームずれを直す見張り役も付けています。まず応急処置で進行不能を止めてから、2段階で移行しました。</dd></div>
+                    </dl>
+                    <div class="grid gap-4 md:grid-cols-2 mt-6">
+                        <figure class="rounded-lg bg-surface border border-line p-3">
+                            <figcaption class="text-xs font-semibold text-muted mb-2">修正前：各ファイルが直接書き換え・書き戻し</figcaption>
+                            <svg viewBox="0 0 320 220" class="w-full h-auto" role="img" aria-label="修正前の構成図。多数のファイルが、カーソルとプレイヤー操作の状態にそれぞれ直接書き込んでいる">
+                                <defs>
+                                    <marker id="arrow-before" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#DC2626"/></marker>
+                                </defs>
+                                <g stroke="#DC2626" stroke-width="1.2" stroke-opacity="0.5" fill="none" marker-end="url(#arrow-before)">
+                                    <line x1="100" y1="33" x2="200" y2="72"/><line x1="100" y1="33" x2="200" y2="147"/>
+                                    <line x1="100" y1="73" x2="200" y2="72"/><line x1="100" y1="73" x2="200" y2="147"/>
+                                    <line x1="100" y1="113" x2="200" y2="72"/><line x1="100" y1="113" x2="200" y2="147"/>
+                                    <line x1="100" y1="153" x2="200" y2="72"/><line x1="100" y1="153" x2="200" y2="147"/>
+                                    <line x1="100" y1="193" x2="200" y2="72"/><line x1="100" y1="193" x2="200" y2="147"/>
+                                </g>
+                                <g fill="#F1F2F4" stroke="#CBD0D7">
+                                    <rect x="10" y="20" width="90" height="26" rx="4"/><rect x="10" y="60" width="90" height="26" rx="4"/>
+                                    <rect x="10" y="100" width="90" height="26" rx="4"/><rect x="10" y="140" width="90" height="26" rx="4"/>
+                                    <rect x="10" y="180" width="90" height="26" rx="4"/>
+                                </g>
+                                <g font-size="12.5" fill="#5A606B" text-anchor="middle">
+                                    <text x="55" y="37">ファイル</text><text x="55" y="77">ファイル</text><text x="55" y="117">ファイル</text><text x="55" y="157">ファイル</text><text x="55" y="197">…計15個</text>
+                                </g>
+                                <g fill="#FFFFFF" stroke="#5A606B">
+                                    <rect x="202" y="55" width="112" height="34" rx="6"/><rect x="202" y="130" width="112" height="34" rx="6"/>
+                                </g>
+                                <g font-size="13" fill="#15171C" text-anchor="middle" font-weight="600">
+                                    <text x="258" y="76">カーソル</text><text x="258" y="151">プレイヤー操作</text>
+                                </g>
+                            </svg>
+                        </figure>
+                        <figure class="rounded-lg bg-surface border border-line p-3">
+                            <figcaption class="text-xs font-semibold text-crimson mb-2">修正後：書き換えるのは管理役の1か所だけ</figcaption>
+                            <svg viewBox="0 0 320 220" class="w-full h-auto" role="img" aria-label="修正後の構成図。各場面は管理役に要求を登録・取り下げするだけで、管理役だけがカーソルとプレイヤー操作を書き換える。管理役には毎フレームずれを直す見張り役がつながる">
+                                <defs>
+                                    <marker id="arrow-after" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#A3192E"/></marker>
+                                </defs>
+                                <text x="100" y="14" font-size="11" fill="#A3192E" text-anchor="middle">要求の登録・取り下げ</text>
+                                <g stroke="#A3192E" stroke-width="1.4" fill="none" marker-end="url(#arrow-after)">
+                                    <line x1="80" y1="33" x2="113" y2="58"/><line x1="80" y1="73" x2="113" y2="73"/><line x1="80" y1="113" x2="113" y2="88"/>
+                                    <line x1="215" y1="60" x2="234" y2="52"/><line x1="215" y1="90" x2="234" y2="102"/>
+                                </g>
+                                <line x1="165" y1="168" x2="165" y2="115" stroke="#A3192E" stroke-width="1.4" stroke-dasharray="4 3" marker-start="url(#arrow-after)" marker-end="url(#arrow-after)"/>
+                                <g fill="#F1F2F4" stroke="#CBD0D7">
+                                    <rect x="10" y="20" width="70" height="26" rx="4"/><rect x="10" y="60" width="70" height="26" rx="4"/><rect x="10" y="100" width="70" height="26" rx="4"/>
+                                </g>
+                                <g font-size="12.5" fill="#5A606B" text-anchor="middle">
+                                    <text x="45" y="37">場面</text><text x="45" y="77">場面</text><text x="45" y="117">場面</text>
+                                </g>
+                                <rect x="115" y="33" width="100" height="80" rx="8" fill="#F7E7EA" stroke="#A3192E" stroke-width="1.5"/>
+                                <text x="165" y="66" font-size="15" font-weight="700" fill="#A3192E" text-anchor="middle">管理役</text>
+                                <text x="165" y="86" font-size="11" fill="#15171C" text-anchor="middle">3つの要求の集合</text>
+                                <rect x="108" y="170" width="114" height="44" rx="8" fill="#FFFFFF" stroke="#A3192E" stroke-dasharray="4 3"/>
+                                <text x="165" y="189" font-size="12.5" font-weight="600" fill="#A3192E" text-anchor="middle">見張り役</text>
+                                <text x="165" y="206" font-size="10.5" fill="#5A606B" text-anchor="middle">毎フレームずれを直す</text>
+                                <g fill="#FFFFFF" stroke="#5A606B">
+                                    <rect x="236" y="34" width="78" height="34" rx="6"/><rect x="236" y="84" width="78" height="40" rx="6"/>
+                                </g>
+                                <g font-size="12" fill="#15171C" text-anchor="middle" font-weight="600">
+                                    <text x="275" y="55">カーソル</text><text x="275" y="101">プレイヤー</text><text x="275" y="116">操作</text>
+                                </g>
+                            </svg>
+                        </figure>
+                    </div>
+                </article>
+
+                <article class="rounded-xl bg-paper border border-line p-5 md:p-6 fade-up">
+                    <img src="./odd/shadow.jpg" alt="ロウソクの明かりで布に映る商人の影" loading="lazy" class="w-full aspect-video object-cover rounded-lg border border-line mb-5 cursor-zoom-in">
+                    <h4 class="font-display font-bold text-lg">布に商人の影だけを映す「影絵」の描画</h4>
+                    <dl class="grid gap-3 text-sm leading-relaxed mt-4">
+                        <div class="grid sm:grid-cols-[4rem_1fr] gap-1 sm:gap-4"><dt class="font-mono text-xs tracking-wider text-muted pt-0.5">課題</dt><dd class="text-muted">URP の標準の素材は光を透かさないため、布の奥に明かりを置いても影は布の裏側にしか出ません。薄い布や、カメラの映像を重ねる方法では、透けたりシールのように浮いたりしました。</dd></div>
+                        <div class="grid sm:grid-cols-[4rem_1fr] gap-1 sm:gap-4"><dt class="font-mono text-xs tracking-wider text-crimson pt-0.5">解決</dt><dd>3回目の方式として、影用のカメラをロウソクの位置に置き、布の四隅に合わせた視野で映す描画を作りました。ロウソクの真後ろほど明るい光だまり、ひだの陰影、にじむ縁、影の中にも残る布の模様、明かりの揺らぎをシェーダーで表現しています。</dd></div>
+                    </dl>
+                </article>
+
+                <article class="rounded-xl bg-paper border border-line p-5 md:p-6 fade-up">
+                    <img src="./odd/burn.jpg" alt="複数の箇所から同時に燃え始める紙" loading="lazy" class="w-full aspect-video object-cover rounded-lg border border-line mb-5 cursor-zoom-in">
+                    <h4 class="font-display font-bold text-lg">燃えながら丸まる紙と、紙から浮かない文字</h4>
+                    <dl class="grid gap-3 text-sm leading-relaxed mt-4">
+                        <div class="grid sm:grid-cols-[4rem_1fr] gap-1 sm:gap-4"><dt class="font-mono text-xs tracking-wider text-muted pt-0.5">課題</dt><dd class="text-muted">紙の回転によって変形の向きが狂い、燃える紙が縦にぐにゃぐにゃ曲がったり、文字が紙から浮いたりしていました。製品のビルドでだけ文字が燃え残る問題もありました。</dd></div>
+                        <div class="grid sm:grid-cols-[4rem_1fr] gap-1 sm:gap-4"><dt class="font-mono text-xs tracking-wider text-crimson pt-0.5">解決</dt><dd>紙の向きに依らずに高さの軸を求め、文字も紙と同じ式で変形させました。規則的な波は、パーリンノイズによる自然な揺らぎに置き換えています。燃え方は、セル状のノイズで複数の箇所から同時に火が付き、縁が炎の色で光るようにしました。</dd></div>
+                    </dl>
+                </article>
+
+                <article class="rounded-xl bg-paper border border-line p-5 md:p-6 fade-up">
+                    <h4 class="font-display font-bold text-lg">音量の仕組みを作り直す</h4>
+                    <dl class="grid gap-3 text-sm leading-relaxed mt-4">
+                        <div class="grid sm:grid-cols-[4rem_1fr] gap-1 sm:gap-4"><dt class="font-mono text-xs tracking-wider text-muted pt-0.5">課題</dt><dd class="text-muted">2秒ごとに音量を書き戻す後付けの方式だったため、警告音が一瞬正常な音量で鳴った後に急に小さくなっていました。原因は仕組みそのものにありました。</dd></div>
+                        <div class="grid sm:grid-cols-[4rem_1fr] gap-1 sm:gap-4"><dt class="font-mono text-xs tracking-wider text-crimson pt-0.5">解決</dt><dd>「その音自体の大小」と「分類全体の大小（AudioMixer の Master / BGM / SE）」に役割を分け、音の接続口を1つにまとめました。移行期間は旧方式と併用できるようにし、チームの作業を止めませんでした。</dd></div>
+                    </dl>
+                </article>
+
+                <article class="rounded-xl bg-paper border border-line p-5 md:p-6 fade-up">
+                    <h4 class="font-display font-bold text-lg">落ちても、読み直しても結果が変わらないセーブ</h4>
+                    <dl class="grid gap-3 text-sm leading-relaxed mt-4">
+                        <div class="grid sm:grid-cols-[4rem_1fr] gap-1 sm:gap-4"><dt class="font-mono text-xs tracking-wider text-muted pt-0.5">課題</dt><dd class="text-muted">店の途中でゲームが落ちると取り立てからやり直しになり、店での買い物も消えていました。タイトルへ戻ると、タイプライターの選択肢を引き直せてしまう抜け道もありました。</dd></div>
+                        <div class="grid sm:grid-cols-[4rem_1fr] gap-1 sm:gap-4"><dt class="font-mono text-xs tracking-wider text-crimson pt-0.5">解決</dt><dd>「取り立ては済み、店にいる」という印をセーブに持たせ、落ちた時は次のターンから始まるようにしました。抽選結果やリロールはすぐに保存し、書き込みは一時ファイルに書いてから差し替える形にして、途中で落ちても壊れないようにしました。</dd></div>
+                    </dl>
+                </article>
+
+                <article class="rounded-xl bg-paper border border-line p-5 md:p-6 fade-up">
+                    <h4 class="font-display font-bold text-lg">照準の判定を1つにまとめる</h4>
+                    <dl class="grid gap-3 text-sm leading-relaxed mt-4">
+                        <div class="grid sm:grid-cols-[4rem_1fr] gap-1 sm:gap-4"><dt class="font-mono text-xs tracking-wider text-muted pt-0.5">課題</dt><dd class="text-muted">タイプライターの近くにある部屋のコインを見ると、タイプライターも一緒に光っていました。照準で物を光らせる判定が、カップやタイプライター用と部屋のコイン用で別々に動き、それぞれが「自分の物が見えている」と判断していたためです。</dd></div>
+                        <div class="grid sm:grid-cols-[4rem_1fr] gap-1 sm:gap-4"><dt class="font-mono text-xs tracking-wider text-crimson pt-0.5">解決</dt><dd>部屋のコインと鍵の判定を、カップやタイプライターと同じ1つの判定にまとめ、一番手前の物1つだけが光るようにしました。部屋が実寸の約4.76倍の大きさで作られていて床のコインに手が届かなかったため、物ごとに届く距離を変えられるようにもしています。</dd></div>
+                    </dl>
+                </article>
+
+                <article class="rounded-xl bg-paper border border-line p-5 md:p-6 fade-up">
+                    <h4 class="font-display font-bold text-lg">解像度を変えても、画面が詰まない設定画面</h4>
+                    <dl class="grid gap-3 text-sm leading-relaxed mt-4">
+                        <div class="grid sm:grid-cols-[4rem_1fr] gap-1 sm:gap-4"><dt class="font-mono text-xs tracking-wider text-muted pt-0.5">課題</dt><dd class="text-muted">映らない解像度を選ぶと、元に戻すボタンも押せなくなります。また、解像度によっては枠線が細くなりすぎて消えていました。</dd></div>
+                        <div class="grid sm:grid-cols-[4rem_1fr] gap-1 sm:gap-4"><dt class="font-mono text-xs tracking-wider text-crimson pt-0.5">解決</dt><dd>時間内に「はい」を押さなければ元に戻す向きにし、カウントは時間を止める場面でも進むようにしました。枠線は、画面上で1ピクセルを下回る時だけ太さを持ち上げています。</dd></div>
+                    </dl>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hide & Hide -->
+    <section id="hide-and-hide" class="py-20 md:py-28">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-wrap items-center gap-2 text-xs">
+                <span class="px-2.5 py-1 rounded-full bg-crimsonSoft text-crimson font-semibold">完成作品</span>
+                <span class="px-2.5 py-1 rounded-full border border-line text-muted font-mono">2023年11月〜2024年1月</span>
+                <span class="px-2.5 py-1 rounded-full border border-line text-muted">4名・大学の授業課題</span>
+            </div>
+            <h2 class="font-display font-black text-4xl md:text-5xl mt-5">Hide &amp; Hide</h2>
+            <p class="font-display text-base md:text-lg text-muted mt-2">ネットワーク対戦かくれんぼ（C言語 + SDL2）</p>
+
+            <div class="grid gap-10 lg:grid-cols-2 mt-10 items-start">
+                <div>
+                    <div class="carousel rounded-xl overflow-hidden border border-line bg-ink aspect-video relative">
+                        <div class="carousel-inner">
+                            <div class="carousel-item">
+                                <video data-loop src="./hide_play.mp4" poster="./hide_play-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="暗いマップで相手を探すプレイ画面の動画" class="w-full h-full object-cover"></video>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="./hide_title.png" alt="Hide &amp; Hide のタイトル画面" class="w-full h-full object-cover cursor-zoom-in">
+                            </div>
+                        </div>
+                        <button class="carousel-btn prev" aria-label="前へ"><i class="fas fa-chevron-left"></i></button>
+                        <button class="carousel-btn next" aria-label="次へ"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <a href="./hide_video.mp4" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-sm text-crimson hover:underline mt-3"><i class="fas fa-film"></i> 授業で提出した紹介動画（59秒・音あり）を見る</a>
+                </div>
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="font-display font-bold text-lg text-crimson">概要</h3>
+                        <p class="text-sm md:text-base leading-relaxed mt-3">互いが鬼のかくれんぼです。2人対戦の2Dアクションで、先に相手を見つけて捕まえた方が勝ちになります。制限時間は180秒で、Joy-Con で操作します。企画から4名で考え、C言語と SDL2 で作りました。</p>
+                    </div>
+                    <div>
+                        <h3 class="font-display font-bold text-lg text-crimson">担当したこと</h3>
+                        <p class="text-sm md:text-base leading-relaxed mt-3">描画処理と、キャラクター・ゲーム処理を担当しました。画面の初期化とタイトル・接続待ち・ゲーム・リザルトの各画面、キャラクターの描画、暗闇と視界の制限、画面の状態の切り替え、Joy-Con とキーボードの入力、移動と歩行アニメーションです。ネットワーク（TCP のクライアント・サーバー型）は、チームで一緒に作りました。</p>
+                    </div>
+                    <div>
+                        <h3 class="font-mono text-xs tracking-wider text-muted">使用技術</h3>
+                        <ul class="flex flex-wrap gap-2 mt-3 text-xs">
+                            <li class="px-2.5 py-1 rounded-md bg-surface border border-line">C言語</li>
+                            <li class="px-2.5 py-1 rounded-md bg-surface border border-line">SDL2（image / ttf / mixer）</li>
+                            <li class="px-2.5 py-1 rounded-md bg-surface border border-line">Joy-Con（joyconlib）</li>
+                            <li class="px-2.5 py-1 rounded-md bg-surface border border-line">TCP ソケット通信</li>
+                            <li class="px-2.5 py-1 rounded-md bg-surface border border-line">マルチスレッド</li>
+                            <li class="px-2.5 py-1 rounded-md bg-surface border border-line">Linux</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="font-display font-bold text-2xl mt-16">遊びの工夫</h3>
+            <div class="grid gap-x-10 gap-y-8 md:grid-cols-2 mt-6">
+                <div class="border-t border-line pt-5">
+                    <h4 class="font-bold text-crimson">見えている相手だけを捕まえられる</h4>
+                    <p class="text-sm leading-relaxed text-muted mt-2">暗いマップでは、自分の向きの前方の範囲にいる相手だけが見えます。捕まえられる範囲も視界と同じにしたので、「見えている相手だけ捕まえられる」というルールが直感的に伝わります。</p>
+                </div>
+                <div class="border-t border-line pt-5">
+                    <h4 class="font-bold text-crimson">30秒ごとの雷で、一瞬だけ居場所が分かる</h4>
+                    <p class="text-sm leading-relaxed text-muted mt-2">30秒ごとに雷が落ちて約1秒マップが明るくなり、視界の外の相手も見えます。チームが作った足音の表示と合わせて、見えない相手を探し、雷の瞬間を待って動く駆け引きが生まれます。</p>
+                </div>
+            </div>
+
+            <h3 class="font-display font-bold text-2xl mt-16">設計と実装の工夫</h3>
+            <div class="grid gap-6 md:grid-cols-2 mt-6">
+                <article class="md:col-span-2 rounded-xl bg-surface border border-line p-5 md:p-7 fade-up">
+                    <h4 class="font-display font-bold text-lg">通信を待っても止まらない、スレッドの分け方</h4>
+                    <dl class="grid gap-3 text-sm leading-relaxed mt-4">
+                        <div class="grid sm:grid-cols-[4rem_1fr] gap-1 sm:gap-4"><dt class="font-mono text-xs tracking-wider text-muted pt-0.5">課題</dt><dd class="text-muted">通信の受信を待つ間に描画や操作が止まると、対戦ゲームとして成り立ちません。</dd></div>
+                        <div class="grid sm:grid-cols-[4rem_1fr] gap-1 sm:gap-4"><dt class="font-mono text-xs tracking-wider text-crimson pt-0.5">解決</dt><dd>入力（Joy-Con・キーボード）、通信、描画を別々のスレッドに分けました。各スレッドは共有している「画面の状態」を見て、今の画面で必要な処理だけを行います。</dd></div>
+                    </dl>
+                    <figure class="max-w-xl mx-auto mt-6">
+                        <svg viewBox="0 0 360 300" class="w-full h-auto" role="img" aria-label="構成図。入力スレッドと通信スレッドが共有の画面の状態を切り替え、メインスレッドがその状態を読み取って描画する">
+                            <defs>
+                                <marker id="arrow-hide" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#A3192E"/></marker>
+                            </defs>
+                            <g stroke="#A3192E" stroke-width="1.5" fill="none" marker-end="url(#arrow-hide)">
+                                <line x1="85" y1="68" x2="128" y2="118"/>
+                                <line x1="275" y1="68" x2="232" y2="118"/>
+                                <line x1="180" y1="184" x2="180" y2="228"/>
+                            </g>
+                            <g font-size="11" fill="#A3192E" text-anchor="middle">
+                                <text x="56" y="100">ボタンで切り替え</text>
+                                <text x="306" y="100" font-size="10.5">結果の受信で切り替え</text>
+                                <text x="248" y="211">読み取って描画</text>
+                            </g>
+                            <g fill="#FFFFFF" stroke="#5A606B">
+                                <rect x="8" y="10" width="154" height="58" rx="8"/>
+                                <rect x="198" y="10" width="154" height="58" rx="8"/>
+                                <rect x="103" y="230" width="154" height="58" rx="8"/>
+                            </g>
+                            <g text-anchor="middle">
+                                <text x="85" y="35" font-size="14" font-weight="700" fill="#15171C">入力スレッド</text>
+                                <text x="85" y="54" font-size="11.5" fill="#5A606B">Joy-Con／キーボード</text>
+                                <text x="275" y="35" font-size="14" font-weight="700" fill="#15171C">通信スレッド</text>
+                                <text x="275" y="54" font-size="11.5" fill="#5A606B">サーバーと送受信（TCP）</text>
+                                <text x="180" y="255" font-size="14" font-weight="700" fill="#15171C">メインスレッド</text>
+                                <text x="180" y="274" font-size="11.5" fill="#5A606B">約15ミリ秒ごとに描画</text>
+                            </g>
+                            <rect x="58" y="120" width="244" height="64" rx="10" fill="#F7E7EA" stroke="#A3192E" stroke-width="1.5"/>
+                            <text x="180" y="146" font-size="14" font-weight="700" fill="#A3192E" text-anchor="middle">画面の状態（共有）</text>
+                            <text x="180" y="168" font-size="11.5" fill="#15171C" text-anchor="middle">タイトル → 接続 → ゲーム → リザルト</text>
+                        </svg>
+                    </figure>
+                </article>
+                <article class="rounded-xl bg-surface border border-line p-5 md:p-6 fade-up">
+                    <h4 class="font-display font-bold text-lg">状態の値をそのまま描画に使う歩行アニメーション</h4>
+                    <dl class="grid gap-3 text-sm leading-relaxed mt-4">
+                        <div class="grid sm:grid-cols-[4rem_1fr] gap-1 sm:gap-4"><dt class="font-mono text-xs tracking-wider text-muted pt-0.5">課題</dt><dd class="text-muted">4方向の向きと歩行の状態の組み合わせごとに、キャラクターの画像を切り替える必要がありました。</dd></div>
+                        <div class="grid sm:grid-cols-[4rem_1fr] gap-1 sm:gap-4"><dt class="font-mono text-xs tracking-wider text-crimson pt-0.5">解決</dt><dd>向きと歩行状態を列挙型で持ち、その値をそのままスプライトシートの切り出し位置に使いました。コマ送りは100ミリ秒ごとのタイマーで行い、止まっている時は更新しません。</dd></div>
+                    </dl>
+                </article>
+                <article class="rounded-xl bg-surface border border-line p-5 md:p-6 fade-up">
+                    <h4 class="font-display font-bold text-lg">Joy-Con とキーボードの両方で遊べる入力</h4>
+                    <dl class="grid gap-3 text-sm leading-relaxed mt-4">
+                        <div class="grid sm:grid-cols-[4rem_1fr] gap-1 sm:gap-4"><dt class="font-mono text-xs tracking-wider text-muted pt-0.5">課題</dt><dd class="text-muted">Joy-Con がない環境でも動かしたいことと、スティックの角度が +180度と −180度の境目で分かれてしまうことがありました。</dd></div>
+                        <div class="grid sm:grid-cols-[4rem_1fr] gap-1 sm:gap-4"><dt class="font-mono text-xs tracking-wider text-crimson pt-0.5">解決</dt><dd>起動時に Joy-Con の接続を確かめ、つながっていなければキーボードだけで遊べるようにしました。角度の境目は2つの条件で同じ「右」として扱い、移動は画面の外に出ないよう制限しています。</dd></div>
+                    </dl>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- その他の制作・研究 -->
+    <section id="others" class="bg-surface border-y border-line py-20 md:py-28">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="font-display font-black text-3xl md:text-4xl">その他の制作・研究</h2>
+            <p class="text-muted mt-3">ゲーム以外も含め、作って動かしてきたものです。</p>
+
+            <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-10">
+                <article id="yattosar" class="md:col-span-2 lg:col-span-3 rounded-xl bg-paper border border-line overflow-hidden fade-up">
+                    <div class="lg:grid lg:grid-cols-[1.15fr_1fr]">
+                        <div class="carousel aspect-video relative bg-surface">
+                            <div class="carousel-inner">
+                                <div class="carousel-item"><img src="./2026-03-18_2.22.41.png" alt="管理者のモニタリング画面。地図上の参加者の位置と、参加者が見ている映像" class="w-full h-full object-cover cursor-zoom-in"></div>
+                                <div class="carousel-item"><img src="./2026-03-18_2.23.48.png" alt="Yattosar の画面" class="w-full h-full object-cover cursor-zoom-in"></div>
+                                <div class="carousel-item"><img src="./2026-03-18_2.27.18.png" alt="Yattosar の画面" class="w-full h-full object-cover cursor-zoom-in"></div>
+                                <div class="carousel-item"><img src="./Screenshot_20260520-163352.png" alt="参加者のスマートフォンの画面" class="w-full h-full object-contain cursor-zoom-in"></div>
+                                <div class="carousel-item"><img src="./Screenshot_20260520-163403.png" alt="参加者のスマートフォンの画面" class="w-full h-full object-contain cursor-zoom-in"></div>
+                                <div class="carousel-item"><img src="./Screenshot_20260520-163413.png" alt="参加者のスマートフォンの画面" class="w-full h-full object-contain cursor-zoom-in"></div>
+                                <div class="carousel-item"><video data-loop src="./yattosar.mp4" poster="./yattosar-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="訓練中に表示される災害シナリオの映像" class="w-full h-full object-cover"></video></div>
+                            </div>
+                            <button class="carousel-btn prev" aria-label="前へ"><i class="fas fa-chevron-left"></i></button>
+                            <button class="carousel-btn next" aria-label="次へ"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                        <div class="p-5 md:p-7">
+                            <p class="font-mono text-[11px] tracking-wider text-crimson">研究・Unity / C# / Photon</p>
+                            <h3 class="font-display font-bold text-lg md:text-xl mt-1">避難訓練システム「Yattosar」と参加者モニタリング</h3>
+                            <p class="text-sm leading-relaxed text-muted mt-3">Yattosar は、GPS で地図上に仮想の境界を設定し、参加者がその場所に着いた時や決めた時刻になった時に、災害の映像や質問を自動で表示する避難訓練システムです。参加者は表示された状況を見て「進む・引き返す・高台へ」などを自分で判断し、選んだ行動によって物語が分岐します。</p>
+                            <p class="text-sm leading-relaxed text-muted mt-3">運用してみると、訓練中は管理者が参加者の位置や状況をつかめず、訓練後の振り返りも「どこを通ったか」の確認に時間を取られ、「なぜそう判断したか」の議論まで進めないという課題がありました。卒業論文と大学院の研究で、この2つを解決する仕組みを加えました。</p>
+                        </div>
+                    </div>
+                    <div class="border-t border-line p-5 md:p-7 grid gap-6 md:grid-cols-3">
+                        <div>
+                            <h4 class="font-bold text-sm">訓練中：リアルタイムのモニタリング</h4>
+                            <p class="text-sm leading-relaxed text-muted mt-2">地理院地図の上に全参加者の位置を表示し、参加者が今見ている映像を管理者の画面でも再現します。テキストのメッセージと音声通話で、その場で指示を出せます。</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-sm">訓練後：行動ログの可視化</h4>
+                            <p class="text-sm leading-relaxed text-muted mt-2">位置・場面・受け取ったメッセージなどの行動をすべて CSV に記録します。振り返りでは、地図の上に移動の軌跡を描き、タイムラインで好きな時刻を再現できます。</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-sm">評価実験：振り返りの質が上がった</h4>
+                            <p class="text-sm leading-relaxed text-muted mt-2">学生6名（3名×2グループ）で、モニタリングの有無を比べました。振り返りの発話のうち「状況確認」は 51.2% から 15.9% に減り、「原因の推定」と「改善策」は約15% から約57% に増えました。</p>
+                        </div>
+                    </div>
+                    <dl class="border-t border-line p-5 md:p-7 grid gap-2 text-sm leading-relaxed">
+                        <div class="grid grid-cols-[3.5rem_1fr] gap-3"><dt class="font-mono text-xs text-muted pt-0.5">技術</dt><dd>Unity、C#、Photon（Fusion・Voice）、GPS によるジオフェンシング、地理院地図、Android タブレット</dd></div>
+                        <div class="grid grid-cols-[3.5rem_1fr] gap-3"><dt class="font-mono text-xs text-muted pt-0.5">その後</dt><dd>実験で出た意見をもとに、全参加者の状況の一覧表示と、氏名の入力・表示（通信が切れた時の復元を含む）を追加しました。</dd></div>
+                        <div class="grid grid-cols-[3.5rem_1fr] gap-3"><dt class="font-mono text-xs text-muted pt-0.5">成果</dt><dd>2026年9月 第51回教育システム情報学会全国大会で発表「ジオフェンシング活用型避難訓練のための参加者モニタリング」</dd></div>
+                    </dl>
+                </article>
+
+                <article id="malaysia" class="rounded-xl bg-paper border border-line overflow-hidden fade-up">
+                    <div class="carousel aspect-video relative bg-line">
+                        <div class="carousel-inner">
+                            <div class="carousel-item"><img src="./malaysia.jpg" alt="マレーシアの学生が VR ゲームを体験している様子" class="w-full h-full object-cover cursor-zoom-in"></div>
+                            <div class="carousel-item"><img src="./PXL_20240226_023040849.jpg" alt="マレーシアでの共同制作の様子" class="w-full h-full object-cover cursor-zoom-in"></div>
+                            <div class="carousel-item"><img src="./PXL_20240223_020620852.MP.jpg" alt="マレーシアでの交流の様子" class="w-full h-full object-cover cursor-zoom-in"></div>
+                            <div class="carousel-item"><img src="./IMG_4507.jpg" alt="マレーシアの学生との集合写真" class="w-full h-full object-cover cursor-zoom-in"></div>
+                        </div>
+                        <button class="carousel-btn prev" aria-label="前へ"><i class="fas fa-chevron-left"></i></button>
+                        <button class="carousel-btn next" aria-label="次へ"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="p-5 md:p-6">
+                        <p class="font-mono text-[11px] tracking-wider text-crimson">ゲーム制作・国際共同制作</p>
+                        <h3 class="font-display font-bold text-lg mt-1">SDGs をテーマにした VR ゲームの国際共同制作</h3>
+                        <p class="text-sm leading-relaxed text-muted mt-2">マレーシアの協定校マラッカ技術大学（UTeM）の学生と共同で、SDGs の理念の普及と異文化交流を目的とした VR ゲームを制作しました。</p>
+                        <dl class="grid gap-2 text-sm leading-relaxed mt-4">
+                            <div class="grid grid-cols-[3.5rem_1fr] gap-3"><dt class="font-mono text-xs text-muted pt-0.5">進め方</dt><dd>11月からオンラインで交流し、SDGs の観点から互いの国の社会問題（防災など）について意見を交わしながら、開発の進め方を共有しました。制作の最終段階では約2週間マレーシアへ渡航し、現地の学生と対面で仕上げました。</dd></div>
+                            <div class="grid grid-cols-[3.5rem_1fr] gap-3"><dt class="font-mono text-xs text-muted pt-0.5">技術</dt><dd>Unity（VR）</dd></div>
+                        </dl>
+                    </div>
+                </article>
+
+
+                <article id="webar" class="rounded-xl bg-paper border border-line overflow-hidden fade-up">
+                    <div class="aspect-video bg-ink">
+                        <video data-loop src="./webar.mp4" poster="./webar-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="スマートフォンで Web AR を使い、廊下で避難経路を案内する動画" class="w-full h-full object-contain"></video>
+                    </div>
+                    <div class="p-5 md:p-6">
+                        <p class="font-mono text-[11px] tracking-wider text-crimson">社会貢献・Web AR</p>
+                        <h3 class="font-display font-bold text-lg mt-1">特別支援学校向けの Web AR</h3>
+                        <p class="text-sm leading-relaxed text-muted mt-2">学校のキャラクターが避難経路を案内する、特別支援学校向けの Web AR アプリです。</p>
+                        <dl class="grid gap-2 text-sm leading-relaxed mt-4">
+                            <div class="grid grid-cols-[3.5rem_1fr] gap-3"><dt class="font-mono text-xs text-muted pt-0.5">内容</dt><dd>徳島県教育委員会からの依頼を受け、国府支援学校で使うアプリを開発しました。スマートフォンのブラウザで開くだけで使えます。</dd></div>
+                            <div class="grid grid-cols-[3.5rem_1fr] gap-3"><dt class="font-mono text-xs text-muted pt-0.5">技術</dt><dd>8th Wall（Web AR）</dd></div>
+                        </dl>
+                    </div>
+                </article>
+
+                <article id="robot" class="md:col-span-2 lg:col-span-1 rounded-xl bg-paper border border-line overflow-hidden fade-up">
+                    <div class="carousel aspect-video relative bg-line">
+                        <div class="carousel-inner">
+                            <div class="carousel-item flex">
+                                <img src="./robot1.png" alt="製作したサッカーロボット（1）" class="w-1/2 h-full object-cover cursor-zoom-in">
+                                <img src="./robot2.png" alt="製作したサッカーロボット（2）" class="w-1/2 h-full object-cover cursor-zoom-in border-l border-line">
+                            </div>
+                            <div class="carousel-item"><img src="./poster_junior.png" alt="中学の全国大会のポスター" class="w-full h-full object-cover cursor-zoom-in"></div>
+                            <div class="carousel-item"><img src="./poster_high.png" alt="高校の全国大会のポスター" class="w-full h-full object-cover cursor-zoom-in"></div>
+                        </div>
+                        <button class="carousel-btn prev" aria-label="前へ"><i class="fas fa-chevron-left"></i></button>
+                        <button class="carousel-btn next" aria-label="次へ"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="p-5 md:p-6">
+                        <p class="font-mono text-[11px] tracking-wider text-crimson">中学・高校・C/C++ / 回路設計</p>
+                        <h3 class="font-display font-bold text-lg mt-1">自立駆動型サッカーロボットの製作</h3>
+                        <p class="text-sm leading-relaxed text-muted mt-2">中学・高校の電気物理部で、自立して動くサッカーロボットをチームで製作し、大会に出場しました。</p>
+                        <dl class="grid gap-2 text-sm leading-relaxed mt-4">
+                            <div class="grid grid-cols-[3.5rem_1fr] gap-3"><dt class="font-mono text-xs text-muted pt-0.5">内容</dt><dd>Fusion 360 での3D CAD 設計と3Dプリンターでの造形、Autodesk Eagle での回路設計とはんだ付けによるセンサー基板の製作、ジャイロやカメラのデータを Arduino で処理してメインマイコンへ送る制御を行いました。</dd></div>
+                            <div class="grid grid-cols-[3.5rem_1fr] gap-3"><dt class="font-mono text-xs text-muted pt-0.5">技術</dt><dd>C/C++、Arduino、Fusion 360、Autodesk Eagle</dd></div>
+                            <div class="grid grid-cols-[3.5rem_1fr] gap-3"><dt class="font-mono text-xs text-muted pt-0.5">成果</dt><dd>4年連続で全国大会に出場し、全国大会ではポスターが優秀プレゼンテーション賞を受賞しました。中学・高校の計4年間、部長を務めました。</dd></div>
+                        </dl>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- プロフィール -->
+    <section id="profile" class="py-20 md:py-28">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="font-display font-black text-3xl md:text-4xl">プロフィール</h2>
+            <div class="grid gap-10 lg:grid-cols-[1fr_1.4fr] mt-10">
+                <div>
+                    <p class="font-display font-bold text-2xl">佐藤 伸哉</p>
+                    <p class="text-sm text-muted mt-1">徳島大学大学院 創成科学研究科 理工学専攻</p>
+                    <p class="text-sm md:text-base leading-relaxed mt-5">「モノづくり」が好きで、中学・高校のロボット製作から始め、大学では C言語でのネットワークゲーム、いまはチームでの商用ゲームの開発に取り組んでいます。自分が作ったものが、目に見えて動くところに面白さを感じています。</p>
+                </div>
+                <div class="grid gap-6 sm:grid-cols-2">
+                    <div>
+                        <h3 class="font-mono text-xs tracking-wider text-muted">言語</h3>
+                        <p class="text-sm mt-2">C / C++ / C# / Python</p>
+                    </div>
+                    <div>
+                        <h3 class="font-mono text-xs tracking-wider text-muted">ゲーム開発</h3>
+                        <p class="text-sm mt-2">Unity 6 (URP)、HLSL シェーダー、DOTween、Unity Localization、Input System、Steamworks.NET、SDL2</p>
+                    </div>
+                    <div>
+                        <h3 class="font-mono text-xs tracking-wider text-muted">通信</h3>
+                        <p class="text-sm mt-2">Socket API（TCP）、Photon</p>
+                    </div>
+                    <div>
+                        <h3 class="font-mono text-xs tracking-wider text-muted">チーム開発</h3>
+                        <p class="text-sm mt-2">Git・GitHub（PR での運用）、作業プランの文書化</p>
+                    </div>
+                    <div>
+                        <h3 class="font-mono text-xs tracking-wider text-muted">AR / VR</h3>
+                        <p class="text-sm mt-2">Unity での VR、Web AR（8th Wall）</p>
+                    </div>
+                    <div>
+                        <h3 class="font-mono text-xs tracking-wider text-muted">ハードウェア</h3>
+                        <p class="text-sm mt-2">Arduino、回路設計（Autodesk Eagle）、3D CAD（Fusion 360）</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-10 border-t border-line">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap justify-between gap-4 text-xs text-muted">
+            <p>© 2026 Shinya Sato</p>
+            <a href="#top" class="hover:text-crimson">ページの先頭へ <i class="fas fa-arrow-up ml-1"></i></a>
+        </div>
+    </footer>
+
+</body>
+</html>
